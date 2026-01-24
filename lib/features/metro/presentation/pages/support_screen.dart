@@ -96,58 +96,41 @@ class SupportScreen extends StatelessWidget {
                         color: colorScheme.outlineVariant.withOpacity(0.5),
                       ),
                     ),
-                    child: Column(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            _socialIcon(
-                              context,
-                              'assets/images/whatsApp.png',
-                              'whatsapp_label'.tr(),
-                              () => _launch(
-                                Uri.parse('https://wa.me/201101118616'),
-                              ),
-                            ),
-                            _socialIcon(
-                              context,
-                              'assets/images/github.png',
-                              'GitHub',
-                              () => _launch(
-                                Uri.parse('https://github.com/eyadsyam'),
-                              ),
-                            ),
-                            _socialIcon(
-                              context,
-                              'assets/images/LinkedIn.png',
-                              'linkedin_label'.tr(),
-                              () => _launch(
-                                Uri.parse(
-                                  'https://www.linkedin.com/in/eyad-syam/',
-                                ),
-                              ),
-                            ),
-                            _socialIcon(
-                              context,
-                              null,
-                              'email_label'.tr(),
-                              () => _launch(
-                                Uri(
-                                  scheme: 'mailto',
-                                  path: 'eyadsyam124@gmail.com',
-                                ),
-                              ),
-                              icon: Icons.mail_rounded,
-                            ),
-                          ],
+                        _socialIcon(
+                          context,
+                          'assets/images/whatsApp.png',
+                          'whatsapp_label'.tr(),
+                          () =>
+                              _launch(Uri.parse('https://wa.me/201101118616')),
                         ),
-                        const Gap(16),
-                        Text(
-                          "eyadsyam124@gmail.com",
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 14,
-                            color: colorScheme.onSurface.withOpacity(0.7),
+                        _socialIcon(
+                          context,
+                          'assets/images/github.png',
+                          'GitHub',
+                          () => _launch(
+                            Uri.parse('https://github.com/eyadsyam/metro_masr'),
+                          ),
+                        ),
+                        _socialIcon(
+                          context,
+                          'assets/images/LinkedIn.png',
+                          'linkedin_label'.tr(),
+                          () => _launch(
+                            Uri.parse('https://www.linkedin.com/in/eyad-syam/'),
+                          ),
+                        ),
+                        _socialIcon(
+                          context,
+                          'assets/images/gmail.png',
+                          'email_label'.tr(),
+                          () => _launch(
+                            Uri(
+                              scheme: 'mailto',
+                              path: 'eyadsyam124@gmail.com',
+                            ),
                           ),
                         ),
                       ],
