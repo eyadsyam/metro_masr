@@ -9,6 +9,109 @@ import 'package:flutter_animate/flutter_animate.dart';
 class SubscriptionsScreen extends StatelessWidget {
   const SubscriptionsScreen({super.key});
 
+  // Data extracted from official Cairo Metro website
+  static final List<Map<String, dynamic>> _ticketPricing = [
+    {
+      'title': 'ticket_9_stations',
+      'price_public': 8,
+      'price_senior': 4,
+      'price_special': 5,
+    },
+    {
+      'title': 'ticket_16_stations',
+      'price_public': 10,
+      'price_senior': 5,
+      'price_special': 5,
+    },
+    {
+      'title': 'ticket_23_stations',
+      'price_public': 15,
+      'price_senior': 8,
+      'price_special': 5,
+    },
+    {
+      'title': 'ticket_plus_39_stations',
+      'price_public': 20,
+      'price_senior': 10,
+      'price_special': 5,
+    },
+  ];
+
+  static final List<Map<String, dynamic>> _monthlySubscriptions = [
+    {'zone': 'zone_1', 'rides': 60, 'price_public': 310, 'price_military': 240},
+    {'zone': 'zone_2', 'rides': 60, 'price_public': 365, 'price_military': 300},
+    {
+      'zone': 'zone_3_4',
+      'rides': 60,
+      'price_public': 425,
+      'price_military': 375,
+    },
+    {
+      'zone': 'zone_5_6',
+      'rides': 60,
+      'price_public': 600,
+      'price_military': 500,
+    },
+  ];
+
+  static final List<Map<String, dynamic>> _quarterlySubscriptions = [
+    {
+      'zone': 'zone_1',
+      'rides': 180,
+      'price_public': 835,
+      'price_military': 720,
+    },
+    {
+      'zone': 'zone_2',
+      'rides': 180,
+      'price_public': 990,
+      'price_military': 900,
+    },
+    {
+      'zone': 'zone_3_4',
+      'rides': 180,
+      'price_public': 1250,
+      'price_military': 1125,
+    },
+    {
+      'zone': 'zone_5_6',
+      'rides': 180,
+      'price_public': 1670,
+      'price_military': 1500,
+    },
+  ];
+
+  // Quarterly Students & Special Needs (180 rides)
+  static final List<Map<String, dynamic>> _studentSpecialSubscriptions = [
+    {
+      'zone': 'zone_1', // 25 stations
+      'price_student': 150,
+      'price_special': 150,
+    },
+    {
+      'zone': 'zone_2', // 39 stations
+      'price_student': 200,
+      'price_special': 200,
+    },
+    {
+      'zone': 'zone_3_4', // All lines
+      'price_student': 250,
+      'price_special': 250,
+    },
+    {
+      'zone': 'zone_5_6', // +4 zones
+      'price_student': 300,
+      'price_special': 300,
+    },
+  ];
+
+  static final List<String> _requirements = [
+    'req_form',
+    'req_photos',
+    'req_id_card',
+    'req_student_proof', // e.g. stamped form
+  ];
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -44,128 +147,61 @@ class SubscriptionsScreen extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(24),
               children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 4,
+                    vertical: 8,
+                  ),
+                  child: Text(
+                    "packages_subtitle".tr(),
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      color: colorScheme.onSurface.withOpacity(0.7),
+                    ),
+                  ),
+                ).animate().fadeIn(delay: 200.ms),
+                const SizedBox(height: 16),
+
                 // Daily Tickets
                 _buildSectionHeader(
                   context,
                   "daily_tickets".tr(),
                 ).animate().fadeIn(duration: 400.ms).slideX(begin: -0.1),
-                _buildTicketCard(
-                  context,
-                  const Color(0xFFFBC02D),
-                  "n_stations".tr(args: ['9']),
-                  "8 ${'price_egp'.tr()}",
-                ).animate().fadeIn(delay: 100.ms).slideX(),
-                _buildTicketCard(
-                  context,
-                  const Color(0xFF4CAF50),
-                  "n_stations".tr(args: ['16']),
-                  "10 ${'price_egp'.tr()}",
-                ).animate().fadeIn(delay: 150.ms).slideX(),
-                _buildTicketCard(
-                  context,
-                  const Color(0xFFE53935),
-                  "n_stations".tr(args: ['23']),
-                  "15 ${'price_egp'.tr()}",
-                ).animate().fadeIn(delay: 200.ms).slideX(),
-                _buildTicketCard(
-                  context,
-                  const Color(0xFF8E24AA),
-                  "n_stations".tr(args: ['23+']),
-                  "20 ${'price_egp'.tr()}",
-                ).animate().fadeIn(delay: 250.ms).slideX(),
-                _buildTicketCard(
-                  context,
-                  const Color(0xFF1565C0),
-                  "Cash Wallet",
-                  "80 ${'price_egp'.tr()}", // Card price
-                  subtitle: "Charge 40-500 EGP",
-                ).animate().fadeIn(delay: 270.ms).slideX(),
+
+                SizedBox(
+                  height: 180,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: _ticketPricing.length,
+                    separatorBuilder: (context, index) => const Gap(16),
+                    itemBuilder: (context, index) {
+                      return _buildTicketCard(
+                        context,
+                        _ticketPricing[index],
+                        index,
+                      );
+                    },
+                  ),
+                ).animate().fadeIn(delay: 300.ms),
 
                 const SizedBox(height: 32),
 
-                // Monthly: Public
+                // Monthly Subscriptions
                 _buildSectionHeader(
                   context,
-                  "Monthly (Public)",
+                  "monthly_subscriptions".tr(),
                 ).animate().fadeIn(delay: 300.ms).slideX(begin: -0.1),
-                _buildSubCard(
-                  context,
-                  "1 Zone (9 Stations)",
-                  "310 ${'price_egp'.tr()}",
-                  Icons.public_rounded,
-                  subtitle: "Saving ~38%",
-                ).animate().fadeIn(delay: 320.ms).slideX(),
-                _buildSubCard(
-                  context,
-                  "2 Zones (16 Stations)",
-                  "365 ${'price_egp'.tr()}",
-                  Icons.public_rounded,
-                  subtitle: "Saving ~45%",
-                ).animate().fadeIn(delay: 340.ms).slideX(),
-                _buildSubCard(
-                  context,
-                  "3-4 Zones (23 Stations)",
-                  "425 ${'price_egp'.tr()}",
-                  Icons.public_rounded,
-                  subtitle: "Saving ~55%",
-                ).animate().fadeIn(delay: 360.ms).slideX(),
-                _buildSubCard(
-                  context,
-                  "5-6 Zones (23+ Stations)",
-                  "600 ${'price_egp'.tr()}",
-                  Icons.public_rounded,
-                  subtitle: "Saving ~40%",
-                ).animate().fadeIn(delay: 380.ms).slideX(),
+                _buildSubscriptionTable(context, _monthlySubscriptions),
 
                 const SizedBox(height: 32),
 
-                // Quarterly
+                // Quarterly Subscriptions
                 _buildSectionHeader(
                   context,
-                  "quarterly_sub".tr(),
-                ).animate().fadeIn(delay: 400.ms).slideX(begin: -0.1),
-                _buildSubCard(
-                  context,
-                  "public".tr(),
-                  "~500 ${'price_egp'.tr()}",
-                  Icons.person_rounded,
-                ).animate().fadeIn(delay: 420.ms).slideX(),
-
-                // Student & Elderly
-                const SizedBox(height: 32),
-                _buildSectionHeader(
-                  context,
-                  "Special Categories",
-                ).animate().fadeIn(delay: 500.ms).slideX(begin: -0.1),
-
-                _buildSubCard(
-                  context,
-                  "students".tr(),
-                  "33 - 41 ${'price_egp'.tr()}",
-                  Icons.school_rounded,
-                  subtitle: "Quarterly (3 Months)",
-                ).animate().fadeIn(delay: 520.ms).slideX(),
-                _buildSubCard(
-                  context,
-                  "elderly".tr() + " (+60)",
-                  "Sliding Scale", // 1 month 135
-                  Icons.elderly_rounded,
-                  subtitle: "Monthly: ~165-265 EGP",
-                ).animate().fadeIn(delay: 540.ms).slideX(),
-                _buildSubCard(
-                  context,
-                  "Elderly (+70)",
-                  "Free",
-                  Icons.accessibility_new_rounded,
-                  subtitle: "All Lines",
-                ).animate().fadeIn(delay: 560.ms).slideX(),
-                _buildSubCard(
-                  context,
-                  "People of Determination",
-                  "22 - 27 ${'price_egp'.tr()}",
-                  Icons.accessible_forward,
-                  subtitle: "Quarterly (3 Months)",
-                ).animate().fadeIn(delay: 580.ms).slideX(),
+                  "quarterly_subscriptions".tr(),
+                ).animate().fadeIn(delay: 300.ms).slideX(begin: -0.1),
+                _buildSubscriptionTable(context, _quarterlySubscriptions),
 
                 const SizedBox(height: 32),
 
@@ -173,7 +209,7 @@ class SubscriptionsScreen extends StatelessWidget {
                 _buildSectionHeader(
                   context,
                   "yearly_sub".tr(),
-                ).animate().fadeIn(delay: 600.ms).slideX(begin: -0.1),
+                ).animate().fadeIn(delay: 500.ms).slideX(begin: -0.1),
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
@@ -199,8 +235,61 @@ class SubscriptionsScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ).animate().fadeIn(delay: 650.ms).scale(),
-                const Gap(120),
+                ).animate().fadeIn(delay: 550.ms).scale(),
+                const Gap(32),
+
+                // Students & Special Needs (Custom Card)
+                _buildSectionHeader(
+                  context,
+                  "students_and_special".tr(),
+                ).animate().fadeIn(delay: 500.ms).slideX(begin: -0.1),
+                _buildSpecialSubscriptionTable(
+                  context,
+                  _studentSpecialSubscriptions,
+                ),
+
+                const Gap(32),
+
+                // Requirements
+                _buildSectionHeader(
+                  context,
+                  "requirements".tr(),
+                ).animate().fadeIn(delay: 500.ms).slideX(begin: -0.1),
+                ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: _requirements.length,
+                  separatorBuilder: (context, index) => const Gap(8),
+                  itemBuilder: (context, index) {
+                    return Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: colorScheme.surfaceVariant.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.check_circle_outline,
+                            color: colorScheme.primary,
+                          ),
+                          const Gap(12),
+                          Expanded(
+                            child: Text(
+                              _requirements[index].tr(),
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 15,
+                                color: colorScheme.onSurface,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                const Gap(100),
               ],
             ),
           ),
@@ -226,121 +315,66 @@ class SubscriptionsScreen extends StatelessWidget {
 
   Widget _buildTicketCard(
     BuildContext context,
-    Color color,
-    String stations,
-    String price, {
-    String? subtitle,
-  }) {
+    Map<String, dynamic> data,
+    int index,
+  ) {
     final colorScheme = Theme.of(context).colorScheme;
+    final colors = [
+      Colors.yellow.shade700, // 9 stations
+      Colors.green, // 16 stations
+      Colors.blue, // 23 stations
+      Colors.pink, // +23 stations
+    ];
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(20),
+      width: 140,
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: colorScheme.surfaceVariant,
-        borderRadius: BorderRadius.circular(16),
-        border: Border(left: BorderSide(color: color, width: 6)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        color: colors[index % colors.length].withOpacity(0.1),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: colors[index % colors.length].withOpacity(0.5),
+          width: 2,
+        ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                stations,
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.onSurface,
-                ),
-              ),
-              if (subtitle != null)
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 12,
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
-            ],
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: colors[index % colors.length],
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.confirmation_number_outlined,
+              color: Colors.white,
+              size: 20,
+            ),
           ),
+          const Spacer(),
           Text(
-            price,
+            data['title'].toString().tr(),
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: colorScheme.onSurface,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          const Gap(4),
+          Text(
+            "${data['price_public']} ${'price_egp'.tr()}",
             style: TextStyle(
               fontFamily: 'Poppins',
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: color,
+              color: colors[index % colors.length],
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildSubCard(
-    BuildContext context,
-    String title,
-    String price,
-    IconData icon, {
-    String? subtitle,
-  }) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-        color: colorScheme.surfaceVariant,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: colorScheme.outlineVariant.withOpacity(0.5)),
-      ),
-      child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-        leading: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: colorScheme.primary.withOpacity(0.1),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(icon, color: colorScheme.primary),
-        ),
-        title: Text(
-          title,
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w600,
-            color: colorScheme.onSurface,
-          ),
-        ),
-        subtitle: subtitle != null
-            ? Text(
-                subtitle,
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 12,
-                  color: colorScheme.primary,
-                ),
-              )
-            : null,
-        trailing: Text(
-          price,
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.bold,
-            color: colorScheme.primary,
-            fontSize: 16,
-          ),
-        ),
       ),
     );
   }
@@ -369,6 +403,234 @@ class SubscriptionsScreen extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildSubscriptionTable(
+    BuildContext context,
+    List<Map<String, dynamic>> data,
+  ) {
+    final theme = Theme.of(context);
+
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.cardColor,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: theme.dividerColor),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          // Header
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: theme.primaryColor.withOpacity(0.1),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(16),
+              ),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    "zone_title".tr(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Center(
+                    child: Text(
+                      "public_price".tr(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Center(
+                    child: Text(
+                      "military_price".tr(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Rows
+          ...data.map((item) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      item['zone'].toString().tr(),
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Center(
+                      child: Text(
+                        "${item['price_public']} ${'price_egp'.tr()}",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: theme.primaryColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Center(
+                      child: Text(
+                        "${item['price_military']} ${'price_egp'.tr()}",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.orange[800],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSpecialSubscriptionTable(
+    BuildContext context,
+    List<Map<String, dynamic>> data,
+  ) {
+    final theme = Theme.of(context);
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.cardColor,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: theme.dividerColor),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          // Header
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: theme.primaryColor.withOpacity(0.1),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(16),
+              ),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    "zone_title".tr(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Center(
+                    child: Text(
+                      "students_label".tr(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Center(
+                    child: Text(
+                      "special_needs".tr(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ...data.map((item) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      item['zone'].toString().tr(),
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Center(
+                      child: Text(
+                        "${item['price_student']} ${'price_egp'.tr()}",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Center(
+                      child: Text(
+                        "${item['price_special']} ${'price_egp'.tr()}",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        ],
+      ),
     );
   }
 }
