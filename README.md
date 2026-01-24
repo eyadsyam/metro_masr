@@ -1,98 +1,86 @@
-<div align="center">
+# 🚇 Metro Masr - The Ultimate Cairo Metro Companion
 
-![Metro Masr Banner](docs/images/banner.png)
+![Flutter](https://img.shields.io/badge/Flutter-3.x-blue?style=for-the-badge&logo=flutter)
+![Dart](https://img.shields.io/badge/Dart-3.x-blue?style=for-the-badge&logo=dart)
+![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-green?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-purple?style=for-the-badge)
 
-# 🚇 Metro Masr (مترو مصر)
-
-**The Ultimate Cairo Metro Navigation Companion**
-
-![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
-![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
-![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
-
-</div>
+**Metro Masr** is a state-of-the-art Flutter application designed to provide the most smooth and intuitive navigation experience for the Cairo Metro system. Whether you are a daily commuter or a tourist exploring the city, Metro Masr ensures you reach your destination efficiently.
 
 ---
 
-## 🌟 Overview (نظرة عامة)
+## ✨ Key Features
 
-**Metro Masr** is a premium, cutting-edge Flutter application designed to make navigating the Cairo Metro system effortless. Built with a focus on User Experience (UX), performance, and Clean Architecture, this app provides real-time route planning, ticket pricing, and a beautiful, dynamic interface.
-
-Whether you are a daily commuter or a tourist, Metro Masr ensures you never get lost underground.
-
----
-
-## ✨ Key Features (المميزات الرئيسية)
-
-*   **⚡ Smart Route Planning**: Uses **Dijkstra's Algorithm** to find the shortest path between any two stations instantly.
-*   **💰 Ticket Pricing Calculator**: Automatically calculates ticket costs based on the number of stations (e.g., 8 EGP, 10 EGP, 15 EGP tiers).
-*   **🗺️ Interactive Maps**: View station details, lines, and interchanges with a distinct visual style for each line.
-*   **🌍 Multi-language Support**: Fully localized in **English** and **Arabic** (العربية), with RTL support.
-*   **🎨 Dynamic Theming**: Beautiful Dark/Light modes and immersive animations using **Rive** and **Lottie**.
-*   **📍 Nearby Stations**: Find the closest metro station to your current location (GPS integration).
-*   **📱 Responsive Design**: Optimized for all screen sizes (Mobile & Tablet).
+*   **⚡ Smart Route Planning**: Uses **Dijkstra's Algorithm** to find the absolute shortest path between any two stations.
+*   **💰 Accurate Pricing**: Real-time ticket pricing calculation based on the number of stations.
+*   **🌍 Bilingual Support**: Fully localized in **Arabic** and **English** for a seamless experience.
+*   **🎨 Stunning UI/UX**: Built with Material 3, custom fonts (Outfit & Cairo), and vibrant animations using **Rive**.
+*   **📍 Location Services**: Find the nearest metro station to your current location instantly.
+*   **💾 Saved Routes**: Bookmark your frequent trips for quick access.
+*   **📱 Responsive Design**: optimized for all screen sizes with a dark/light mode aesthetic.
 
 ---
 
-## 📱 App Showcase (معرض التطبيق)
+## 📱 App Screenshots
+
+Experience the modern design and fluid animations of Metro Masr.
 
 <div align="center">
-    <img src="docs/images/showcase.png" alt="App Screenshots" width="100%">
+  <table>
+    <tr>
+      <td align="center"><img src="assets/screenshots/screen_1.jpeg" width="250" /><br /><b>Onboarding / Splash</b></td>
+      <td align="center"><img src="assets/screenshots/screen_2.jpeg" width="250" /><br /><b>Home Screen</b></td>
+      <td align="center"><img src="assets/screenshots/screen_3.jpeg" width="250" /><br /><b>Route Planner</b></td>
+    </tr>
+    <tr>
+      <td align="center"><img src="assets/screenshots/screen_4.jpeg" width="250" /><br /><b>Station Details</b></td>
+      <td align="center"><img src="assets/screenshots/screen_5.jpeg" width="250" /><br /><b>Ticket Pricing</b></td>
+      <td align="center"><img src="assets/screenshots/screen_6.jpeg" width="250" /><br /><b>Navigation</b></td>
+    </tr>
+    <tr>
+      <td align="center"><img src="assets/screenshots/screen_7.jpeg" width="250" /><br /><b>Saved Routes</b></td>
+      <td align="center"><img src="assets/screenshots/screen_8.jpeg" width="250" /><br /><b>Settings</b></td>
+      <td align="center"><img src="assets/screenshots/screen_9.jpeg" width="250" /><br /><b>Search</b></td>
+    </tr>
+     <tr>
+      <td align="center"><img src="assets/screenshots/screen_10.jpeg" width="250" /><br /><b>App Drawer</b></td>
+      <td align="center"><img src="assets/screenshots/screen_11.jpeg" width="250" /><br /><b>Localization</b></td>
+      <td align="center"><img src="assets/screenshots/screen_12.jpeg" width="250" /><br /><b>Map View</b></td>
+    </tr>
+     <tr>
+      <td align="center"><img src="assets/screenshots/screen_13.jpeg" width="250" /><br /><b>Features</b></td>
+      <td align="center"><img src="assets/screenshots/screen_14.jpeg" width="250" /><br /><b>Overview</b></td>
+    </tr>
+  </table>
 </div>
+
+> *Note: Arrange and explore the screenshots to see the full flow of the application.*
 
 ---
 
-## 🛠️ Tech Stack & Architecture
+## 🛠 Technology Stack
 
-This project is built using industry-standard tools and the **Clean Architecture** pattern to ensure scalability and maintainability.
-
-*   **Framework**: [Flutter](https://flutter.dev/) (SDK > 3.0)
-*   **Language**: [Dart](https://dart.dev/)
-*   **State Management**: `flutter_bloc`
-*   **Dependency Injection**: `get_it` & `injectable`
-*   **Local Storage**: `hive` (NoSQL database)
-*   **Localization**: `easy_localization`
-*   **Navigation**: `go_router`
-*   **Type Safety**: `freezed` & `json_serializable`
-*   **Icons**: `lucide_icons` & Custom SVGs
-
-### Folder Structure
-```
-lib/
-├── core/           # Core utilities, config, and shared widgets
-├── features/       # Feature-based modules (Metro, Auth, Payment)
-│   ├── data/       # Repositories, Data Sources, Models
-│   ├── domain/     # Entities, Use Cases, Repository Interfaces
-│   └── presentation/ # BLoCs, Pages, Widgets
-├── injection_container.dart # DI Setup
-└── main.dart       # Entry point
-```
+*   **Framework**: Flutter & Dart.
+*   **State Management**: Bloc / Cubit.
+*   **Navigation**: GoRouter.
+*   **Localization**: easy_localization.
+*   **Database**: Hive (for local storage).
+*   **Algorithms**: Graph Theory (Dijkstra) for routing.
+*   **UI Assets**: Rive Animations, Google Fonts.
 
 ---
 
 ## 🚀 Getting Started
 
-### Prerequisites
-*   Flutter SDK installed
-*   Android Studio / VS Code
-*   Git
-
-### Installation
-
 1.  **Clone the repository**:
     ```bash
     git clone https://github.com/eyadsyam/metro_masr.git
     ```
-2.  **Navigate to the project directory**:
-    ```bash
-    cd metro_masr
-    ```
-3.  **Install dependencies**:
+2.  **Install dependencies**:
     ```bash
     flutter pub get
     ```
-4.  **Run the app**:
+3.  **Run the app**:
     ```bash
     flutter run
     ```
@@ -101,18 +89,10 @@ lib/
 
 ## 🤝 Contributing
 
-Contributions are welcome! If you have suggestions or want to improve the app, please create a Pull Request.
-
-1.  Fork the Project
-2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4.  Push to the Branch (`git push origin feature/AmazingFeature`)
-5.  Open a Pull Request
+Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes.
 
 ---
 
 <div align="center">
-
-**Made with ❤️ in Egypt**
-
+  Made with ❤️ for Egypt 🇪🇬
 </div>
