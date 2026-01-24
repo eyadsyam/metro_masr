@@ -73,6 +73,49 @@ class SubscriptionsScreen extends StatelessWidget {
                   "n_stations".tr(args: ['23+']),
                   "20 ${'price_egp'.tr()}",
                 ).animate().fadeIn(delay: 250.ms).slideX(),
+                _buildTicketCard(
+                  context,
+                  const Color(0xFF1565C0),
+                  "Cash Wallet",
+                  "80 ${'price_egp'.tr()}", // Card price
+                  subtitle: "Charge 40-500 EGP",
+                ).animate().fadeIn(delay: 270.ms).slideX(),
+
+                const SizedBox(height: 32),
+
+                // Monthly: Public
+                _buildSectionHeader(
+                  context,
+                  "Monthly (Public)",
+                ).animate().fadeIn(delay: 300.ms).slideX(begin: -0.1),
+                _buildSubCard(
+                  context,
+                  "1 Zone (9 Stations)",
+                  "310 ${'price_egp'.tr()}",
+                  Icons.public_rounded,
+                  subtitle: "Saving ~38%",
+                ).animate().fadeIn(delay: 320.ms).slideX(),
+                _buildSubCard(
+                  context,
+                  "2 Zones (16 Stations)",
+                  "365 ${'price_egp'.tr()}",
+                  Icons.public_rounded,
+                  subtitle: "Saving ~45%",
+                ).animate().fadeIn(delay: 340.ms).slideX(),
+                _buildSubCard(
+                  context,
+                  "3-4 Zones (23 Stations)",
+                  "425 ${'price_egp'.tr()}",
+                  Icons.public_rounded,
+                  subtitle: "Saving ~55%",
+                ).animate().fadeIn(delay: 360.ms).slideX(),
+                _buildSubCard(
+                  context,
+                  "5-6 Zones (23+ Stations)",
+                  "600 ${'price_egp'.tr()}",
+                  Icons.public_rounded,
+                  subtitle: "Saving ~40%",
+                ).animate().fadeIn(delay: 380.ms).slideX(),
 
                 const SizedBox(height: 32),
 
@@ -80,25 +123,49 @@ class SubscriptionsScreen extends StatelessWidget {
                 _buildSectionHeader(
                   context,
                   "quarterly_sub".tr(),
-                ).animate().fadeIn(delay: 300.ms).slideX(begin: -0.1),
+                ).animate().fadeIn(delay: 400.ms).slideX(begin: -0.1),
                 _buildSubCard(
                   context,
                   "public".tr(),
-                  "185 ${'price_egp'.tr()}",
+                  "~500 ${'price_egp'.tr()}",
                   Icons.person_rounded,
-                ).animate().fadeIn(delay: 350.ms).slideX(),
+                ).animate().fadeIn(delay: 420.ms).slideX(),
+
+                // Student & Elderly
+                const SizedBox(height: 32),
+                _buildSectionHeader(
+                  context,
+                  "Special Categories",
+                ).animate().fadeIn(delay: 500.ms).slideX(begin: -0.1),
+
                 _buildSubCard(
                   context,
                   "students".tr(),
-                  "33 ${'price_egp'.tr()}",
+                  "33 - 41 ${'price_egp'.tr()}",
                   Icons.school_rounded,
-                ).animate().fadeIn(delay: 400.ms).slideX(),
+                  subtitle: "Quarterly (3 Months)",
+                ).animate().fadeIn(delay: 520.ms).slideX(),
                 _buildSubCard(
                   context,
-                  "elderly".tr(),
-                  "discounted".tr(),
+                  "elderly".tr() + " (+60)",
+                  "Sliding Scale", // 1 month 135
                   Icons.elderly_rounded,
-                ).animate().fadeIn(delay: 450.ms).slideX(),
+                  subtitle: "Monthly: ~165-265 EGP",
+                ).animate().fadeIn(delay: 540.ms).slideX(),
+                _buildSubCard(
+                  context,
+                  "Elderly (+70)",
+                  "Free",
+                  Icons.accessibility_new_rounded,
+                  subtitle: "All Lines",
+                ).animate().fadeIn(delay: 560.ms).slideX(),
+                _buildSubCard(
+                  context,
+                  "People of Determination",
+                  "22 - 27 ${'price_egp'.tr()}",
+                  Icons.accessible_forward,
+                  subtitle: "Quarterly (3 Months)",
+                ).animate().fadeIn(delay: 580.ms).slideX(),
 
                 const SizedBox(height: 32),
 
@@ -106,7 +173,7 @@ class SubscriptionsScreen extends StatelessWidget {
                 _buildSectionHeader(
                   context,
                   "yearly_sub".tr(),
-                ).animate().fadeIn(delay: 500.ms).slideX(begin: -0.1),
+                ).animate().fadeIn(delay: 600.ms).slideX(begin: -0.1),
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
@@ -122,17 +189,17 @@ class SubscriptionsScreen extends StatelessWidget {
                       _buildYearlyRow(
                         context,
                         "2 ${'line'.tr()}",
-                        "yearly_price".tr(args: ['3175']),
+                        "4235 ${'price_egp'.tr()}",
                       ),
                       const Divider(height: 32),
                       _buildYearlyRow(
                         context,
                         "3 ${'line'.tr()}",
-                        "yearly_price".tr(args: ['3660']),
+                        "5335 ${'price_egp'.tr()}",
                       ),
                     ],
                   ),
-                ).animate().fadeIn(delay: 550.ms).scale(),
+                ).animate().fadeIn(delay: 650.ms).scale(),
                 const Gap(120),
               ],
             ),
@@ -161,8 +228,9 @@ class SubscriptionsScreen extends StatelessWidget {
     BuildContext context,
     Color color,
     String stations,
-    String price,
-  ) {
+    String price, {
+    String? subtitle,
+  }) {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
@@ -183,14 +251,28 @@ class SubscriptionsScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            stations,
-            style: TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: colorScheme.onSurface,
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                stations,
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: colorScheme.onSurface,
+                ),
+              ),
+              if (subtitle != null)
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 12,
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+                ),
+            ],
           ),
           Text(
             price,
@@ -210,8 +292,9 @@ class SubscriptionsScreen extends StatelessWidget {
     BuildContext context,
     String title,
     String price,
-    IconData icon,
-  ) {
+    IconData icon, {
+    String? subtitle,
+  }) {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
@@ -239,6 +322,16 @@ class SubscriptionsScreen extends StatelessWidget {
             color: colorScheme.onSurface,
           ),
         ),
+        subtitle: subtitle != null
+            ? Text(
+                subtitle,
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 12,
+                  color: colorScheme.primary,
+                ),
+              )
+            : null,
         trailing: Text(
           price,
           style: TextStyle(
