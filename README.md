@@ -2,26 +2,42 @@
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.x-blue?style=for-the-badge&logo=flutter)
 ![Dart](https://img.shields.io/badge/Dart-3.x-blue?style=for-the-badge&logo=dart)
-![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-green?style=for-the-badge)
+![Supabase](https://img.shields.io/badge/Supabase-Auth%20%26%20DB-green?style=for-the-badge&logo=supabase)
+![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS%20%7C%20Web-orange?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-purple?style=for-the-badge)
 
-**Metro Masr** is a state-of-the-art Flutter application designed to provide the most smooth and intuitive navigation experience for the Cairo Metro system. Whether you are a daily commuter or a tourist exploring the city, Metro Masr ensures you reach your destination efficiently.
+**Metro Masr** is a smart, offline-first application designed to navigate the Cairo Metro system with ease. It combines powerful pathfinding algorithms with cloud synchronization to provide a seamless experience for commuters and tourists alike.
+
+📖 **[Read the Full Project Documentation](FULL_PROJECT_DOCUMENTATION.md)** for deep technical details.
 
 ---
 
-## Key Features
+## 🚀 Key Features
 
-*   **Smart Route Planning**: Uses Dijkstra's Algorithm to find the absolute shortest path between any two stations.
-*   **Accurate Pricing**: Real-time ticket pricing calculation based on the number of stations.
-*   **Bilingual Support**: Fully localized in Arabic and English for a seamless experience.
-*   **Stunning UI/UX**: Built with Material 3, custom fonts (Outfit & Cairo), and vibrant animations using Rive.
-*   **Location Services**: Find the nearest metro station to your current location instantly.
-*   **Saved Routes**: Bookmark your frequent trips for quick access.
-*   **Responsive Design**: optimized for all screen sizes with a dark/light mode aesthetic.
+*   **Smart Navigation**: Calculates the shortest path, estimated time, and number of stations using **Dijkstra’s Algorithm**.
+*   **Offline-First**: Works perfectly without internet for core features using a local **SQLite** database.
+*   **Cloud Sync**: Sign in with **Google** to sync your saved routes across devices using **Supabase**.
+*   **Real-Time Pricing**: Accurate ticket costs based on the latest Cairo Metro fare rules.
+*   **Subscriptions Manager**: View and calculate prices for Monthly, Quarterly, and Yearly plans.
+*   **Nearest Station**: Uses GPS to instantly find the closest metro station to you.
+*   **Bilingual**: Fully localized interface in **Arabic** and **English**.
+*   **Dark/Light Mode**: Beautiful UI themes that adapt to your system settings.
 
 ---
 
-## App Screenshots
+## 🛠️ Technology Stack
+
+*   **Frontend**: Flutter & Dart.
+*   **State Management**: `flutter_bloc` (Cubit pattern) & `get_it` for DI.
+*   **Backend & Auth**: **Supabase** (PostgreSQL, Auth, Cloud Functions).
+*   **Local Database**: **Floor** (SQLite abstraction) for storing station data and graph edges.
+*   **Navigation**: `go_router` for deep linking and smart routing.
+*   **Maps**: `flutter_map` (OpenStreetMap).
+*   **Localization**: `easy_localization`.
+
+---
+
+## 📱 App Screenshots
 
 Experience the modern design and fluid animations of Metro Masr.
 
@@ -56,19 +72,7 @@ Experience the modern design and fluid animations of Metro Masr.
 
 ---
 
-## Technology Stack
-
-*   **Framework**: Flutter & Dart.
-*   **State Management**: Bloc / Cubit.
-*   **Navigation**: GoRouter.
-*   **Localization**: easy_localization.
-*   **Database**: Hive (for local storage).
-*   **Algorithms**: Graph Theory (Dijkstra) for routing.
-*   **UI Assets**: Rive Animations, Google Fonts.
-
----
-
-## Getting Started
+## 🏁 Getting Started
 
 1.  **Clone the repository**:
     ```bash
@@ -78,19 +82,23 @@ Experience the modern design and fluid animations of Metro Masr.
     ```bash
     flutter pub get
     ```
-3.  **Run the app**:
+3.  **Generate Database Code**:
+    ```bash
+    dart run build_runner build
+    ```
+4.  **Run the app**:
     ```bash
     flutter run
     ```
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes.
 
 ---
 
 <div align="center">
-  Made with love for Egypt
+  Made with ❤️ for Egypt
 </div>
