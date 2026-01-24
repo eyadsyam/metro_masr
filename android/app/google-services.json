@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "381646113575",
+    "project_id": "metromasr",
+    "storage_bucket": "metromasr.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:381646113575:android:60bc9ceef51b3473b77702",
+        "android_client_info": {
+          "package_name": "com.example.metro_masr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "381646113575-bvl4no1suk49fgfas3rm4dmeu7g9omlg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMAErPv_AzAzTJWt_ahZtaWQWWA-63uMg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "381646113575-bvl4no1suk49fgfas3rm4dmeu7g9omlg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

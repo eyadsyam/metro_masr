@@ -1,0 +1,442 @@
+{
+  "lines": [
+    {
+      "id": "1",
+      "name": "Line 1",
+      "stations": [
+        {
+          "name": "Helwan",
+          "lat": 29.849,
+          "lng": 31.334
+        },
+        {
+          "name": "Ain Helwan",
+          "lat": 29.855,
+          "lng": 31.332
+        },
+        {
+          "name": "Helwan University",
+          "lat": 29.864,
+          "lng": 31.328
+        },
+        {
+          "name": "Wadi Hof",
+          "lat": 29.878,
+          "lng": 31.321
+        },
+        {
+          "name": "Hadayek Helwan",
+          "lat": 29.889,
+          "lng": 31.315
+        },
+        {
+          "name": "El-Maasara",
+          "lat": 29.902,
+          "lng": 31.308
+        },
+        {
+          "name": "Tora El-Asmant",
+          "lat": 29.914,
+          "lng": 31.301
+        },
+        {
+          "name": "Kozzika",
+          "lat": 29.925,
+          "lng": 31.294
+        },
+        {
+          "name": "Tora El-Balad",
+          "lat": 29.941,
+          "lng": 31.285
+        },
+        {
+          "name": "Sakanat El-Maadi",
+          "lat": 29.953,
+          "lng": 31.278
+        },
+        {
+          "name": "Maadi",
+          "lat": 29.961,
+          "lng": 31.272
+        },
+        {
+          "name": "Hadayek El-Maadi",
+          "lat": 29.972,
+          "lng": 31.264
+        },
+        {
+          "name": "Dar El-Salam",
+          "lat": 29.983,
+          "lng": 31.255
+        },
+        {
+          "name": "El-Zahraa",
+          "lat": 29.998,
+          "lng": 31.241
+        },
+        {
+          "name": "Mar Girgis",
+          "lat": 30.007,
+          "lng": 31.231
+        },
+        {
+          "name": "El-Malek El-Saleh",
+          "lat": 30.018,
+          "lng": 31.232
+        },
+        {
+          "name": "Al-Sayeda Zeinab",
+          "lat": 30.029,
+          "lng": 31.235
+        },
+        {
+          "name": "Saad Zaghloul",
+          "lat": 30.036,
+          "lng": 31.238
+        },
+        {
+          "name": "Sadat",
+          "lat": 30.044,
+          "lng": 31.235
+        },
+        {
+          "name": "Nasser",
+          "lat": 30.052,
+          "lng": 31.239
+        },
+        {
+          "name": "Orabi",
+          "lat": 30.058,
+          "lng": 31.242
+        },
+        {
+          "name": "Al-Shohadaa",
+          "lat": 30.063,
+          "lng": 31.246
+        },
+        {
+          "name": "Ghamra",
+          "lat": 30.071,
+          "lng": 31.255
+        },
+        {
+          "name": "El-Demerdash",
+          "lat": 30.078,
+          "lng": 31.266
+        },
+        {
+          "name": "Manshiet El-Sadr",
+          "lat": 30.082,
+          "lng": 31.277
+        },
+        {
+          "name": "Kobri El-Qobba",
+          "lat": 30.085,
+          "lng": 31.288
+        },
+        {
+          "name": "Hammamat El-Qobba",
+          "lat": 30.091,
+          "lng": 31.299
+        },
+        {
+          "name": "Saray El-Qobba",
+          "lat": 30.098,
+          "lng": 31.308
+        },
+        {
+          "name": "Hadayek El-Zaitoun",
+          "lat": 30.108,
+          "lng": 31.315
+        },
+        {
+          "name": "Helmeyet El-Zaitoun",
+          "lat": 30.117,
+          "lng": 31.322
+        },
+        {
+          "name": "El-Matareya",
+          "lat": 30.125,
+          "lng": 31.328
+        },
+        {
+          "name": "Ain Shams",
+          "lat": 30.132,
+          "lng": 31.335
+        },
+        {
+          "name": "Ezbet El-Nakhl",
+          "lat": 30.141,
+          "lng": 31.342
+        },
+        {
+          "name": "El-Marg",
+          "lat": 30.151,
+          "lng": 31.348
+        },
+        {
+          "name": "New El-Marg",
+          "lat": 30.160,
+          "lng": 31.352
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Line 2",
+      "stations": [
+        {
+          "name": "El-Mounib",
+          "lat": 29.981,
+          "lng": 31.209
+        },
+        {
+          "name": "Sakiat Mekky",
+          "lat": 29.992,
+          "lng": 31.210
+        },
+        {
+          "name": "Omm El-Masryeen",
+          "lat": 30.003,
+          "lng": 31.211
+        },
+        {
+          "name": "Giza",
+          "lat": 30.010,
+          "lng": 31.212
+        },
+        {
+          "name": "Faisal",
+          "lat": 30.017,
+          "lng": 31.205
+        },
+        {
+          "name": "Cairo University",
+          "lat": 30.026,
+          "lng": 31.201
+        },
+        {
+          "name": "El-Bahooth",
+          "lat": 30.036,
+          "lng": 31.207
+        },
+        {
+          "name": "Dokki",
+          "lat": 30.038,
+          "lng": 31.217
+        },
+        {
+          "name": "Opera",
+          "lat": 30.042,
+          "lng": 31.226
+        },
+        {
+          "name": "Sadat",
+          "lat": 30.044,
+          "lng": 31.235
+        },
+        {
+          "name": "Mohamed Naguib",
+          "lat": 30.045,
+          "lng": 31.245
+        },
+        {
+          "name": "Attaba",
+          "lat": 30.052,
+          "lng": 31.248
+        },
+        {
+          "name": "Al-Shohadaa",
+          "lat": 30.063,
+          "lng": 31.246
+        },
+        {
+          "name": "Massara",
+          "lat": 30.071,
+          "lng": 31.244
+        },
+        {
+          "name": "Rod El-Farag",
+          "lat": 30.080,
+          "lng": 31.241
+        },
+        {
+          "name": "Saint Teresa",
+          "lat": 30.088,
+          "lng": 31.240
+        },
+        {
+          "name": "Khalafawy",
+          "lat": 30.097,
+          "lng": 31.239
+        },
+        {
+          "name": "Mezallat",
+          "lat": 30.105,
+          "lng": 31.238
+        },
+        {
+          "name": "Kolleyet El-Zeraa",
+          "lat": 30.114,
+          "lng": 31.237
+        },
+        {
+          "name": "Shubra El-Kheima",
+          "lat": 30.122,
+          "lng": 31.236
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Line 3",
+      "stations": [
+        {
+          "name": "Adly Mansour",
+          "lat": 30.144,
+          "lng": 31.428
+        },
+        {
+          "name": "El-Haykstep",
+          "lat": 30.141,
+          "lng": 31.410
+        },
+        {
+          "name": "Omar Ibn El-Khattab",
+          "lat": 30.138,
+          "lng": 31.395
+        },
+        {
+          "name": "Qobaa",
+          "lat": 30.135,
+          "lng": 31.380
+        },
+        {
+          "name": "Hisham Barakat",
+          "lat": 30.130,
+          "lng": 31.365
+        },
+        {
+          "name": "El-Nozha",
+          "lat": 30.125,
+          "lng": 31.350
+        },
+        {
+          "name": "Nadi El-Shams",
+          "lat": 30.120,
+          "lng": 31.335
+        },
+        {
+          "name": "Alf Maskan",
+          "lat": 30.115,
+          "lng": 31.325
+        },
+        {
+          "name": "Heliopolis",
+          "lat": 30.110,
+          "lng": 31.315
+        },
+        {
+          "name": "Haroun",
+          "lat": 30.105,
+          "lng": 31.305
+        },
+        {
+          "name": "Al-Ahram",
+          "lat": 30.095,
+          "lng": 31.310
+        },
+        {
+          "name": "Koleyet El-Banat",
+          "lat": 30.085,
+          "lng": 31.315
+        },
+        {
+          "name": "Stadium",
+          "lat": 30.075,
+          "lng": 31.305
+        },
+        {
+          "name": "Fair Zone",
+          "lat": 30.065,
+          "lng": 31.295
+        },
+        {
+          "name": "Abbassia",
+          "lat": 30.060,
+          "lng": 31.280
+        },
+        {
+          "name": "Abdou Pasha",
+          "lat": 30.055,
+          "lng": 31.270
+        },
+        {
+          "name": "El-Geish",
+          "lat": 30.055,
+          "lng": 31.260
+        },
+        {
+          "name": "Bab El-Shaaria",
+          "lat": 30.053,
+          "lng": 31.255
+        },
+        {
+          "name": "Attaba",
+          "lat": 30.052,
+          "lng": 31.248
+        },
+        {
+          "name": "Nasser",
+          "lat": 30.052,
+          "lng": 31.239
+        },
+        {
+          "name": "Maspero",
+          "lat": 30.054,
+          "lng": 31.233
+        },
+        {
+          "name": "Safaa Hegazy",
+          "lat": 30.063,
+          "lng": 31.226
+        },
+        {
+          "name": "Kit Kat",
+          "lat": 30.068,
+          "lng": 31.218
+        },
+        {
+          "name": "Sudan",
+          "lat": 30.072,
+          "lng": 31.210
+        },
+        {
+          "name": "Imbaba",
+          "lat": 30.078,
+          "lng": 31.205
+        },
+        {
+          "name": "El-Bohy",
+          "lat": 30.084,
+          "lng": 31.200
+        },
+        {
+          "name": "El-Qawmia Al-Arabiya",
+          "lat": 30.090,
+          "lng": 31.195
+        },
+        {
+          "name": "Ring Road",
+          "lat": 30.096,
+          "lng": 31.190
+        },
+        {
+          "name": "Rod El-Farag Axis",
+          "lat": 30.102,
+          "lng": 31.185
+        }
+      ]
+    }
+  ]
+}
