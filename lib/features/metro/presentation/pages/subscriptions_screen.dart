@@ -116,6 +116,7 @@ class SubscriptionsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -126,6 +127,7 @@ class SubscriptionsScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
+        surfaceTintColor: Colors.transparent,
       ),
       body: Stack(
         children: [
@@ -145,7 +147,7 @@ class SubscriptionsScreen extends StatelessWidget {
 
           SafeArea(
             child: ListView(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -174,7 +176,7 @@ class SubscriptionsScreen extends StatelessWidget {
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemCount: _ticketPricing.length,
-                    separatorBuilder: (context, index) => const Gap(16),
+                    separatorBuilder: (context, index) => const Gap(12),
                     itemBuilder: (context, index) {
                       return _buildTicketCard(
                         context,
@@ -187,12 +189,30 @@ class SubscriptionsScreen extends StatelessWidget {
 
                 const SizedBox(height: 32),
 
-                // Monthly Subscriptions
+                // Monthly Subscriptions (Visual Refactor: Card List)
                 _buildSectionHeader(
                   context,
                   "monthly_subscriptions".tr(),
+                  subtitle: "60_rides_desc".tr(), // Mock key, or just omit
                 ).animate().fadeIn(delay: 300.ms).slideX(begin: -0.1),
-                _buildSubscriptionTable(context, _monthlySubscriptions),
+                ..._monthlySubscriptions.map(
+                  (item) => _buildSubscriptionCard(
+                    context,
+                    zone: item['zone'].toString().tr(),
+                    prices: [
+                      _PriceItem(
+                        label: 'public_price'.tr(),
+                        price: item['price_public'],
+                        color: theme.primaryColor,
+                      ),
+                      _PriceItem(
+                        label: 'military_price'.tr(),
+                        price: item['price_military'],
+                        color: Colors.orange[800]!,
+                      ),
+                    ],
+                  ),
+                ),
 
                 const SizedBox(height: 32),
 
@@ -201,7 +221,24 @@ class SubscriptionsScreen extends StatelessWidget {
                   context,
                   "quarterly_subscriptions".tr(),
                 ).animate().fadeIn(delay: 300.ms).slideX(begin: -0.1),
-                _buildSubscriptionTable(context, _quarterlySubscriptions),
+                ..._quarterlySubscriptions.map(
+                  (item) => _buildSubscriptionCard(
+                    context,
+                    zone: item['zone'].toString().tr(),
+                    prices: [
+                      _PriceItem(
+                        label: 'public_price'.tr(),
+                        price: item['price_public'],
+                        color: theme.primaryColor,
+                      ),
+                      _PriceItem(
+                        label: 'military_price'.tr(),
+                        price: item['price_military'],
+                        color: Colors.orange[800]!,
+                      ),
+                    ],
+                  ),
+                ),
 
                 const SizedBox(height: 32),
 
@@ -213,21 +250,30 @@ class SubscriptionsScreen extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: colorScheme.surfaceVariant.withOpacity(0.4),
+                    color: isDark ? const Color(0xFF1E293B) : Colors.white,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: colorScheme.outlineVariant.withOpacity(0.5),
+                      color: colorScheme.outlineVariant.withOpacity(0.2),
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.05),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _buildYearlyRow(
                         context,
                         "2 ${'line'.tr()}",
                         "4235 ${'price_egp'.tr()}",
                       ),
-                      const Divider(height: 32),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Divider(),
+                      ),
                       _buildYearlyRow(
                         context,
                         "3 ${'line'.tr()}",
@@ -243,9 +289,23 @@ class SubscriptionsScreen extends StatelessWidget {
                   context,
                   "students_and_special".tr(),
                 ).animate().fadeIn(delay: 500.ms).slideX(begin: -0.1),
-                _buildSpecialSubscriptionTable(
-                  context,
-                  _studentSpecialSubscriptions,
+                ..._studentSpecialSubscriptions.map(
+                  (item) => _buildSubscriptionCard(
+                    context,
+                    zone: item['zone'].toString().tr(),
+                    prices: [
+                      _PriceItem(
+                        label: 'students_label'.tr(),
+                        price: item['price_student'],
+                        color: Colors.blue,
+                      ),
+                      _PriceItem(
+                        label: 'special_needs'.tr(),
+                        price: item['price_special'],
+                        color: Colors.green,
+                      ),
+                    ],
+                  ),
                 ),
 
                 const Gap(32),
@@ -259,19 +319,26 @@ class SubscriptionsScreen extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: _requirements.length,
-                  separatorBuilder: (context, index) => const Gap(8),
+                  separatorBuilder: (context, index) => const Gap(12),
                   itemBuilder: (context, index) {
                     return Container(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
                       decoration: BoxDecoration(
-                        color: colorScheme.surfaceVariant.withOpacity(0.5),
+                        color: colorScheme.surfaceVariant.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: colorScheme.outline.withOpacity(0.1),
+                        ),
                       ),
                       child: Row(
                         children: [
                           Icon(
-                            Icons.check_circle_outline,
+                            Icons.check_circle_rounded,
                             color: colorScheme.primary,
+                            size: 20,
                           ),
                           const Gap(12),
                           Expanded(
@@ -279,7 +346,8 @@ class SubscriptionsScreen extends StatelessWidget {
                               _requirements[index].tr(),
                               style: TextStyle(
                                 fontFamily: 'Poppins',
-                                fontSize: 15,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
                                 color: colorScheme.onSurface,
                               ),
                             ),
@@ -298,18 +366,42 @@ class SubscriptionsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionHeader(BuildContext context, String title) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16, left: 4),
-      child: Text(
-        title,
-        style: TextStyle(
-          fontFamily: 'Poppins',
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: Theme.of(context).colorScheme.primary,
+  Widget _buildSectionHeader(
+    BuildContext context,
+    String title, {
+    String? subtitle,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 4),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
         ),
-      ),
+        if (subtitle != null) ...[
+          const Gap(4),
+          Padding(
+            padding: const EdgeInsets.only(left: 4),
+            child: Text(
+              subtitle,
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 12,
+                color: Theme.of(context).textTheme.bodySmall?.color,
+              ),
+            ),
+          ),
+        ],
+        const Gap(12),
+      ],
     );
   }
 
@@ -319,23 +411,30 @@ class SubscriptionsScreen extends StatelessWidget {
     int index,
   ) {
     final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     final colors = [
-      Colors.yellow.shade700, // 9 stations
-      Colors.green, // 16 stations
-      Colors.blue, // 23 stations
-      Colors.pink, // +23 stations
+      Colors.amber.shade700, // 9 stations
+      Colors.green.shade600, // 16 stations
+      Colors.blue.shade600, // 23 stations
+      const Color(0xFFD81B60), // +23 stations (Pink/Purple)
     ];
+    final color = colors[index % colors.length];
 
     return Container(
-      width: 140,
+      width: 130,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: colors[index % colors.length].withOpacity(0.1),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: colors[index % colors.length].withOpacity(0.5),
-          width: 2,
-        ),
+        color: isDark ? const Color(0xFF1E293B) : Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: color.withOpacity(0.1),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -343,12 +442,12 @@ class SubscriptionsScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: colors[index % colors.length],
+              color: color.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
-              Icons.confirmation_number_outlined,
-              color: Colors.white,
+            child: Icon(
+              Icons.confirmation_number_rounded,
+              color: color,
               size: 20,
             ),
           ),
@@ -357,22 +456,107 @@ class SubscriptionsScreen extends StatelessWidget {
             data['title'].toString().tr(),
             style: TextStyle(
               fontFamily: 'Poppins',
-              fontSize: 14,
+              fontSize: 13,
               fontWeight: FontWeight.w600,
-              color: colorScheme.onSurface,
+              color: colorScheme.onSurface.withOpacity(0.8),
+              height: 1.2,
             ),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          const Gap(4),
+          const Gap(8),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              "${data['price_public']}",
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
+            ),
+          ),
           Text(
-            "${data['price_public']} ${'price_egp'.tr()}",
+            'price_egp'.tr(),
             style: TextStyle(
               fontFamily: 'Poppins',
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: colors[index % colors.length],
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              color: color.withOpacity(0.8),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSubscriptionCard(
+    BuildContext context, {
+    required String zone,
+    required List<_PriceItem> prices,
+  }) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF1E293B) : Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: theme.dividerColor.withOpacity(0.5)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(isDark ? 0.2 : 0.03),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            zone,
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: theme.colorScheme.onSurface,
+            ),
+          ),
+          const Gap(12),
+          Row(
+            children: prices
+                .map(
+                  (p) => Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          p.label,
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 12,
+                            color: theme.textTheme.bodySmall?.color,
+                          ),
+                        ),
+                        const Gap(2),
+                        Text(
+                          "${p.price} ${'price_egp'.tr()}",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: p.color,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+                .toList(),
           ),
         ],
       ),
@@ -380,144 +564,41 @@ class SubscriptionsScreen extends StatelessWidget {
   }
 
   Widget _buildYearlyRow(BuildContext context, String title, String price) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-            color: colorScheme.onSurface,
-          ),
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: theme.primaryColor.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.calendar_today_rounded,
+                size: 18,
+                color: theme.primaryColor,
+              ),
+            ),
+            const Gap(12),
+            Text(
+              title,
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: theme.colorScheme.onSurface,
+              ),
+            ),
+          ],
         ),
         Text(
           price,
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.bold,
-            color: colorScheme.primary,
-            fontSize: 16,
-          ),
+          style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
         ),
       ],
-    );
-  }
-
-  Widget _buildSubscriptionTable(
-    BuildContext context,
-    List<Map<String, dynamic>> data,
-  ) {
-    final theme = Theme.of(context);
-
-    return Container(
-      decoration: BoxDecoration(
-        color: theme.cardColor,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: theme.dividerColor),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          // Header
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: theme.primaryColor.withOpacity(0.1),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(16),
-              ),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Text(
-                    "zone_title".tr(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Center(
-                    child: Text(
-                      "public_price".tr(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Poppins',
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Center(
-                    child: Text(
-                      "military_price".tr(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Poppins',
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          // Rows
-          ...data.map((item) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                      item['zone'].toString().tr(),
-                      style: const TextStyle(fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Center(
-                      child: Text(
-                        "${item['price_public']} ${'price_egp'.tr()}",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: theme.primaryColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Center(
-                      child: Text(
-                        "${item['price_military']} ${'price_egp'.tr()}",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.orange[800],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }).toList(),
-        ],
-      ),
     );
   }
 
@@ -633,4 +714,12 @@ class SubscriptionsScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class _PriceItem {
+  final String label;
+  final int price;
+  final Color color;
+
+  _PriceItem({required this.label, required this.price, required this.color});
 }
