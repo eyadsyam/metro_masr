@@ -1,4 +1,4 @@
-# 🚇 Metro Masr - The Ultimate Cairo Metro Companion
+# Metro Masr - The Ultimate Cairo Metro Companion
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.x-blue?style=for-the-badge&logo=flutter)
 ![Dart](https://img.shields.io/badge/Dart-3.x-blue?style=for-the-badge&logo=dart)
@@ -9,56 +9,54 @@
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-*   **⚡ Smart Route Planning**: Uses **Dijkstra's Algorithm** to find the absolute shortest path between any two stations.
-*   **💰 Accurate Pricing**: Real-time ticket pricing calculation based on the number of stations.
-*   **🌍 Bilingual Support**: Fully localized in **Arabic** and **English** for a seamless experience.
-*   **🎨 Stunning UI/UX**: Built with Material 3, custom fonts (Outfit & Cairo), and vibrant animations using **Rive**.
-*   **📍 Location Services**: Find the nearest metro station to your current location instantly.
-*   **💾 Saved Routes**: Bookmark your frequent trips for quick access.
-*   **📱 Responsive Design**: optimized for all screen sizes with a dark/light mode aesthetic.
+*   **Smart Route Planning**: Uses Dijkstra's Algorithm to find the absolute shortest path between any two stations.
+*   **Accurate Pricing**: Real-time ticket pricing calculation based on the number of stations.
+*   **Bilingual Support**: Fully localized in Arabic and English for a seamless experience.
+*   **Stunning UI/UX**: Built with Material 3, custom fonts (Outfit & Cairo), and vibrant animations using Rive.
+*   **Location Services**: Find the nearest metro station to your current location instantly.
+*   **Saved Routes**: Bookmark your frequent trips for quick access.
+*   **Responsive Design**: optimized for all screen sizes with a dark/light mode aesthetic.
 
 ---
 
-## 📱 App Screenshots
+## App Screenshots
 
 Experience the modern design and fluid animations of Metro Masr.
 
 <div align="center">
   <table>
     <tr>
-      <td align="center"><img src="assets/screenshots/screen_1.jpeg" width="250" /><br /><b>Onboarding / Splash</b></td>
-      <td align="center"><img src="assets/screenshots/screen_2.jpeg" width="250" /><br /><b>Home Screen</b></td>
-      <td align="center"><img src="assets/screenshots/screen_3.jpeg" width="250" /><br /><b>Route Planner</b></td>
+      <td align="center"><img src="assets/screenshots/onboarding1.jpeg" width="250" /><br /><b>Onboarding 1</b></td>
+      <td align="center"><img src="assets/screenshots/onboarding2.jpeg" width="250" /><br /><b>Onboarding 2</b></td>
+      <td align="center"><img src="assets/screenshots/onboarding3.jpeg" width="250" /><br /><b>Onboarding 3</b></td>
     </tr>
     <tr>
-      <td align="center"><img src="assets/screenshots/screen_4.jpeg" width="250" /><br /><b>Station Details</b></td>
-      <td align="center"><img src="assets/screenshots/screen_5.jpeg" width="250" /><br /><b>Ticket Pricing</b></td>
-      <td align="center"><img src="assets/screenshots/screen_6.jpeg" width="250" /><br /><b>Navigation</b></td>
+      <td align="center"><img src="assets/screenshots/Home Screen.jpeg" width="250" /><br /><b>Home Screen</b></td>
+      <td align="center"><img src="assets/screenshots/Location Access.jpeg" width="250" /><br /><b>Location Access</b></td>
+      <td align="center"><img src="assets/screenshots/Search for place.jpeg" width="250" /><br /><b>Search for Place</b></td>
     </tr>
     <tr>
-      <td align="center"><img src="assets/screenshots/screen_7.jpeg" width="250" /><br /><b>Saved Routes</b></td>
-      <td align="center"><img src="assets/screenshots/screen_8.jpeg" width="250" /><br /><b>Settings</b></td>
-      <td align="center"><img src="assets/screenshots/screen_9.jpeg" width="250" /><br /><b>Search</b></td>
+      <td align="center"><img src="assets/screenshots/Route Details.jpeg" width="250" /><br /><b>Route Details</b></td>
+      <td align="center"><img src="assets/screenshots/Near.jpeg" width="250" /><br /><b>Nearest Station</b></td>
+      <td align="center"><img src="assets/screenshots/Saved.jpeg" width="250" /><br /><b>Saved Routes</b></td>
     </tr>
      <tr>
-      <td align="center"><img src="assets/screenshots/screen_10.jpeg" width="250" /><br /><b>App Drawer</b></td>
-      <td align="center"><img src="assets/screenshots/screen_11.jpeg" width="250" /><br /><b>Localization</b></td>
-      <td align="center"><img src="assets/screenshots/screen_12.jpeg" width="250" /><br /><b>Map View</b></td>
+      <td align="center"><img src="assets/screenshots/Packages.jpeg" width="250" /><br /><b>Packages</b></td>
+      <td align="center"><img src="assets/screenshots/Profile.jpeg" width="250" /><br /><b>Profile</b></td>
+       <td align="center"><img src="assets/screenshots/Suppport.jpeg" width="250" /><br /><b>Support</b></td>
     </tr>
      <tr>
-      <td align="center"><img src="assets/screenshots/screen_13.jpeg" width="250" /><br /><b>Features</b></td>
-      <td align="center"><img src="assets/screenshots/screen_14.jpeg" width="250" /><br /><b>Overview</b></td>
+      <td align="center"><img src="assets/screenshots/Customization_en.jpeg" width="250" /><br /><b>Customization (English)</b></td>
+      <td align="center"><img src="assets/screenshots/Customization_ar.jpeg" width="250" /><br /><b>Customization (Arabic)</b></td>
     </tr>
   </table>
 </div>
 
-> *Note: Arrange and explore the screenshots to see the full flow of the application.*
-
 ---
 
-## 🛠 Technology Stack
+## Technology Stack
 
 *   **Framework**: Flutter & Dart.
 *   **State Management**: Bloc / Cubit.
@@ -70,7 +68,7 @@ Experience the modern design and fluid animations of Metro Masr.
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 1.  **Clone the repository**:
     ```bash
@@ -87,12 +85,12 @@ Experience the modern design and fluid animations of Metro Masr.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes.
 
 ---
 
 <div align="center">
-  Made with ❤️ for Egypt 🇪🇬
+  Made with love for Egypt
 </div>
