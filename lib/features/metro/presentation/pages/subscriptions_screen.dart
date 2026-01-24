@@ -150,50 +150,44 @@ class SubscriptionsScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 4,
-                    vertical: 8,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: Text(
                     "packages_subtitle".tr(),
                     style: TextStyle(
                       fontFamily: 'Poppins',
-                      fontSize: 14,
-                      color: colorScheme.onSurface.withOpacity(0.7),
+                      fontSize: 16, // Increased size
+                      fontWeight: FontWeight.w500, // Increased weight
+                      color: colorScheme
+                          .onSurface, // Removed opacity for better visibility
                     ),
                   ),
                 ).animate().fadeIn(delay: 200.ms),
-                const SizedBox(height: 16),
+                const SizedBox(height: 24),
 
-                // Daily Tickets
+                // Daily Tickets (Stacked Vertically)
                 _buildSectionHeader(
                   context,
                   "daily_tickets".tr(),
                 ).animate().fadeIn(duration: 400.ms).slideX(begin: -0.1),
 
-                SizedBox(
-                  height: 180,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _ticketPricing.length,
-                    separatorBuilder: (context, index) => const Gap(12),
-                    itemBuilder: (context, index) {
-                      return _buildTicketCard(
-                        context,
-                        _ticketPricing[index],
-                        index,
-                      );
-                    },
-                  ),
-                ).animate().fadeIn(delay: 300.ms),
+                ..._ticketPricing.map((ticket) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: _buildTicketCardWide(
+                      context,
+                      ticket,
+                      _ticketPricing.indexOf(ticket),
+                    ),
+                  );
+                }),
 
                 const SizedBox(height: 32),
 
-                // Monthly Subscriptions (Visual Refactor: Card List)
+                // Monthly Subscriptions
                 _buildSectionHeader(
                   context,
                   "monthly_subscriptions".tr(),
-                  subtitle: "60_rides_desc".tr(), // Mock key, or just omit
+                  subtitle: "60_rides_desc".tr(),
                 ).animate().fadeIn(delay: 300.ms).slideX(begin: -0.1),
                 ..._monthlySubscriptions.map(
                   (item) => _buildSubscriptionCard(
@@ -203,12 +197,12 @@ class SubscriptionsScreen extends StatelessWidget {
                       _PriceItem(
                         label: 'public_price'.tr(),
                         price: item['price_public'],
-                        color: theme.primaryColor,
-                      ),
+                        color: isDark ? Colors.cyanAccent : theme.primaryColor,
+                      ), // High contrast
                       _PriceItem(
                         label: 'military_price'.tr(),
                         price: item['price_military'],
-                        color: Colors.orange[800]!,
+                        color: Colors.orange[700]!,
                       ),
                     ],
                   ),
@@ -229,12 +223,12 @@ class SubscriptionsScreen extends StatelessWidget {
                       _PriceItem(
                         label: 'public_price'.tr(),
                         price: item['price_public'],
-                        color: theme.primaryColor,
+                        color: isDark ? Colors.cyanAccent : theme.primaryColor,
                       ),
                       _PriceItem(
                         label: 'military_price'.tr(),
                         price: item['price_military'],
-                        color: Colors.orange[800]!,
+                        color: Colors.orange[700]!,
                       ),
                     ],
                   ),
@@ -297,7 +291,7 @@ class SubscriptionsScreen extends StatelessWidget {
                       _PriceItem(
                         label: 'students_label'.tr(),
                         price: item['price_student'],
-                        color: Colors.blue,
+                        color: Colors.blueAccent,
                       ),
                       _PriceItem(
                         label: 'special_needs'.tr(),
@@ -394,8 +388,9 @@ class SubscriptionsScreen extends StatelessWidget {
               subtitle,
               style: TextStyle(
                 fontFamily: 'Poppins',
-                fontSize: 12,
-                color: Theme.of(context).textTheme.bodySmall?.color,
+                fontSize: 14, // Increased size
+                color: Theme.of(context).textTheme.bodyMedium?.color
+                    ?.withOpacity(0.8), // Better contrast
               ),
             ),
           ),
@@ -491,6 +486,91 @@ class SubscriptionsScreen extends StatelessWidget {
     );
   }
 
+  // New Wide Ticket Card for Stacked Layout
+  Widget _buildTicketCardWide(
+    BuildContext context,
+    Map<String, dynamic> data,
+    int index,
+  ) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final colors = [
+      Colors.amber.shade700,
+      Colors.green.shade600,
+      Colors.blue.shade600,
+      const Color(0xFFD81B60),
+    ];
+    final color = colors[index % colors.length];
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF1E293B) : Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: color.withOpacity(0.1),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.confirmation_number_rounded,
+              color: color,
+              size: 24,
+            ),
+          ),
+          const Gap(16),
+          Expanded(
+            child: Text(
+              data['title'].toString().tr(),
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: colorScheme.onSurface,
+              ),
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                "${data['price_public']}",
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              Text(
+                'price_egp'.tr(),
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: color.withOpacity(0.8),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildSubscriptionCard(
     BuildContext context, {
     required String zone,
@@ -547,7 +627,7 @@ class SubscriptionsScreen extends StatelessWidget {
                           "${p.price} ${'price_egp'.tr()}",
                           style: TextStyle(
                             fontFamily: 'Poppins',
-                            fontSize: 16,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: p.color,
                           ),
@@ -596,7 +676,12 @@ class SubscriptionsScreen extends StatelessWidget {
         ),
         Text(
           price,
-          style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.bold,
+            color: theme.primaryColor,
+            fontSize: 18,
+          ),
         ),
       ],
     );
