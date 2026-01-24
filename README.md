@@ -1,5 +1,7 @@
 # Metro Masr - The Ultimate Cairo Metro Companion
 
+![Metro Masr Banner](assets/images/metro_masr_banner.png)
+
 ![Flutter](https://img.shields.io/badge/Flutter-3.x-blue?style=for-the-badge&logo=flutter)
 ![Dart](https://img.shields.io/badge/Dart-3.x-blue?style=for-the-badge&logo=dart)
 ![Supabase](https://img.shields.io/badge/Supabase-Auth%20%26%20DB-green?style=for-the-badge&logo=supabase)
