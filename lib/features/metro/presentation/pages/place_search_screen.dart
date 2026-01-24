@@ -363,25 +363,37 @@ class _PlaceSearchScreenState extends State<PlaceSearchScreen>
               ),
               // Metro Stations
               MarkerLayer(
-                markers: stations.map((station) {
-                  return Marker(
-                    point: LatLng(station.latitude, station.longitude),
-                    width: 30,
-                    height: 30,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 2),
-                      ),
-                      child: const Icon(
-                        Icons.train,
-                        color: Colors.white,
-                        size: 16,
-                      ),
-                    ),
-                  );
-                }).toList(),
+                markers:
+                    stations // Use a subset of stations to avoid duplicates on map
+                        .fold<Map<String, Station>>({}, (map, station) {
+                          map[station.nameEn] =
+                              station; // Keep last or first, doesn't matter for marker
+                          return map;
+                        })
+                        .values
+                        .map((station) {
+                          return Marker(
+                            point: LatLng(station.latitude, station.longitude),
+                            width: 30,
+                            height: 30,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 2,
+                                ),
+                              ),
+                              child: const Icon(
+                                Icons.train,
+                                color: Colors.white,
+                                size: 16,
+                              ),
+                            ),
+                          );
+                        })
+                        .toList(),
               ),
               // Selected Location
               if (_selectedLocation != null)

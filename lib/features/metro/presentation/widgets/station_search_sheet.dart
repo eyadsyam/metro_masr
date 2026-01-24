@@ -21,20 +21,37 @@ class StationSearchSheet extends StatefulWidget {
 
 class _StationSearchSheetState extends State<StationSearchSheet> {
   late List<Station> _filteredStations;
+  // Unique stations for display, grouping duplicates (interchanges)
+  late List<Station> _uniqueStations;
   final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _filteredStations = widget.stations;
+    _processStations();
+    _filteredStations = _uniqueStations;
+  }
+
+  void _processStations() {
+    final Map<String, Station> uniqueMap = {};
+    for (var s in widget.stations) {
+      if (!uniqueMap.containsKey(s.nameEn)) {
+        uniqueMap[s.nameEn] = s;
+      } else {
+        // If already exists (interchange), ensure we keep the one with interchange flag true if possible (usually all are true)
+        // or effectively we just keep the first one but we'll handle the "Lines" display in the UI
+      }
+    }
+    _uniqueStations = uniqueMap.values.toList();
+    // Sort alphabetically? Or by Line? Let's keep original order relative to first appearance
   }
 
   void _filter(String query) {
     setState(() {
       if (query.isEmpty) {
-        _filteredStations = widget.stations;
+        _filteredStations = _uniqueStations;
       } else {
-        _filteredStations = widget.stations
+        _filteredStations = _uniqueStations
             .where(
               (s) =>
                   s.nameEn.toLowerCase().contains(query.toLowerCase()) ||
@@ -43,6 +60,29 @@ class _StationSearchSheetState extends State<StationSearchSheet> {
             .toList();
       }
     });
+  }
+
+  String _getLinesText(Station station, BuildContext context) {
+    // Find all lines for this station name
+    final allInstances = widget.stations
+        .where((s) => s.nameEn == station.nameEn)
+        .toList();
+    final lineIds = allInstances.map((e) => e.lineId).toSet().toList()..sort();
+
+    if (lineIds.length == 1) {
+      return "${'line'.tr()} ${lineIds.first}";
+    } else {
+      return "${'lines'.tr()} ${lineIds.join(' & ')}"; // e.g., Lines 1 & 2
+    }
+  }
+
+  List<int> _getAllLineIds(Station station) {
+    return widget.stations
+        .where((s) => s.nameEn == station.nameEn)
+        .map((s) => s.lineId)
+        .toSet()
+        .toList()
+      ..sort();
   }
 
   Color _getLineColor(int id) {
@@ -128,6 +168,8 @@ class _StationSearchSheetState extends State<StationSearchSheet> {
               itemBuilder: (context, index) {
                 final station = _filteredStations[index];
                 final landmark = station.getLandmark(context);
+                final lineIds = _getAllLineIds(station);
+                final isInterchange = lineIds.length > 1;
 
                 return Card(
                       elevation: 0,
@@ -143,14 +185,18 @@ class _StationSearchSheetState extends State<StationSearchSheet> {
                         leading: Container(
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: _getLineColor(
-                              station.lineId,
-                            ).withOpacity(0.1),
+                            color: isInterchange
+                                ? Colors.orange.withOpacity(0.1)
+                                : _getLineColor(
+                                    station.lineId,
+                                  ).withOpacity(0.1),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
                             Icons.train_rounded,
-                            color: _getLineColor(station.lineId),
+                            color: isInterchange
+                                ? Colors.orange
+                                : _getLineColor(station.lineId),
                             size: 20,
                           ),
                         ),
@@ -166,7 +212,7 @@ class _StationSearchSheetState extends State<StationSearchSheet> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "${'line'.tr()} ${station.lineId}",
+                              _getLinesText(station, context),
                               style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontSize: 12,
