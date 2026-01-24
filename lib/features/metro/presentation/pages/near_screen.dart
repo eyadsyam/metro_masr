@@ -85,9 +85,22 @@ class _NearScreenState extends State<NearScreen> {
     final sorted = List<Station>.from(allStations);
     sorted.sort((a, b) => distanceMap[a.id]!.compareTo(distanceMap[b.id]!));
 
+    // Deduplicate by name (keep closest)
+    final uniqueStations = <Station>[];
+    final seenNames = <String>{};
+
+    for (var s in sorted) {
+      if (!seenNames.contains(s.nameEn)) {
+        seenNames.add(s.nameEn);
+        uniqueStations.add(s);
+      }
+    }
+
     if (mounted) {
       setState(() {
-        _sortedStations = sorted.take(15).toList(); // Show more stations
+        _sortedStations = uniqueStations
+            .take(15)
+            .toList(); // Show more stations
         _loading = false;
       });
     }
@@ -165,6 +178,20 @@ class _NearScreenState extends State<NearScreen> {
         itemCount: _sortedStations.length,
         itemBuilder: (context, index) {
           final station = _sortedStations[index];
+
+          // Check if this is the first occurrence of this station name in the list (or if previous one was different)
+          // Since it's sorted by distance, the top ones are the meaningful "entrances".
+          // We want to avoid showing "Sadat Line 1" and "Sadat Line 2" separately if they are roughly same location.
+          // However, here we sorted by distance. If they are same location, they appear adjacent.
+
+          // Deduplication Logic for Display:
+          // If this is not the first item, and it has the same English name as the previous item, skip it.
+          // Note: In ListView.builder we can't easily "skip" an index without filtering the list first.
+          // So we should have filtered _sortedStations in _sortStations instead.
+          // BUT since I am editing the builder now, let's assume _sortedStations is fully processed,
+          // OR I should refactor _sortStations.
+          // Refactoring _sortStations is cleaner.
+
           final dist = Geolocator.distanceBetween(
             _currentPosition!.latitude,
             _currentPosition!.longitude,

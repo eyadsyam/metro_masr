@@ -33,13 +33,31 @@ class _SavedRoutesScreenState extends State<SavedRoutesScreen> {
       final routesMap = await context.read<UserCubit>().getSavedRoutes();
 
       final routesList = routesMap.map((map) {
+        // Robust ID parsing: handle int, string, camelCase (local), snake_case (remote)
+        final srcIdVal = map['source_station_id'] ?? map['sourceStationId'];
+        final dstIdVal =
+            map['destination_station_id'] ?? map['destinationStationId'];
+
+        final srcId = int.tryParse(srcIdVal.toString()) ?? 0;
+        final dstId = int.tryParse(dstIdVal.toString()) ?? 0;
+
+        // Name parsing
+        final srcName =
+            map['from_station'] ?? map['sourceStationName'] ?? "Unknown";
+        final dstName =
+            map['to_station'] ?? map['destinationStationName'] ?? "Unknown";
+
         return SavedRoute(
           id: map['id'].toString(),
-          sourceStationId: map['source_station_id'] as int? ?? 0,
-          destinationStationId: map['destination_station_id'] as int? ?? 0,
-          sourceStationName: map['from_station'] ?? "Unknown",
-          destinationStationName: map['to_station'] ?? "Unknown",
-          savedAt: DateTime.tryParse(map['saved_at'] ?? "") ?? DateTime.now(),
+          sourceStationId: srcId,
+          destinationStationId: dstId,
+          sourceStationName: srcName,
+          destinationStationName: dstName,
+          savedAt:
+              DateTime.tryParse(
+                map['saved_at']?.toString() ?? map['savedAt']?.toString() ?? "",
+              ) ??
+              DateTime.now(),
         );
       }).toList();
 
