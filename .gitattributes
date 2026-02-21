@@ -1,0 +1,19 @@
+# Linguist overrides - Hide platform-specific languages from GitHub stats
+
+# Hide HTML (web folder)
+web/** linguist-vendored
+
+# Hide C++ and CMake (windows folder)
+windows/** linguist-vendored
+
+# Hide C++ and CMake (linux folder)
+linux/** linguist-vendored
+
+# Hide Swift (ios folder)
+ios/** linguist-vendored
+
+# Hide macOS (Objective-C/Swift)
+macos/** linguist-vendored
+
+# Hide Android (Kotlin/Java/Gradle)
+android/** linguist-vendored
