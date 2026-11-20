@@ -138,6 +138,16 @@ class MetroCubit extends Cubit<MetroState> {
       return;
     }
 
+    if (state.sourceStation!.id == state.destinationStation!.id) {
+      emit(
+        state.copyWith(
+          status: MetroStatus.error,
+          errorMessage: 'Source and destination must be different stations.',
+        ),
+      );
+      return;
+    }
+
     emit(state.copyWith(status: MetroStatus.loading));
 
     try {
